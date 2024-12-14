@@ -1,10 +1,8 @@
-ASSESSMENT MODEL COLLECTION
-==========================
+# ASSESSMENT MODEL COLLECTION
 
 This project is a comprehensive assessment model toolkit that implements various commonly used evaluation methods for solving multi-criteria decision-making and comprehensive evaluation problems.
 
-PROJECT STRUCTURE
-----------------
+## PROJECT STRUCTURE
 
 Assessment_model/
 ├── AHP/
