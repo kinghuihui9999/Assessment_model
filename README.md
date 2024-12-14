@@ -150,16 +150,3 @@ Contributions are welcome! Feel free to open [issues](#) or submit [pull request
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 📝 Contact
-
-For any inquiries or support, please reach out to [your-email@example.com](mailto:your-email@example.com).
-
----
-
-*Happy Evaluating! 🎉*
