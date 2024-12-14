@@ -1,6 +1,6 @@
 # 📊 Assessment Model Collection
 
-Welcome to the **Assessment Model Collection** project! This toolkit offers a comprehensive suite of evaluation methods tailored for multi-criteria decision-making and comprehensive evaluation challenges.
+A comprehensive toolkit for implementing various evaluation methods tailored for multi-criteria decision-making and risk assessment.
 
 ---
 
@@ -9,15 +9,20 @@ Welcome to the **Assessment Model Collection** project! This toolkit offers a co
 ```
 Assessment_model/
 ├── AHP/
-│   └── AHP.py                 # Analytic Hierarchy Process
+│   ├── combine.py              # Combines multiple expert judgments
+│   ├── level2_1.py             # Natural factor weights calculation
+│   └── level2_2.py             # Social factor weights calculation
 ├── FCE/
-│   └── FCE.py                 # Fuzzy Comprehensive Evaluation
+│   └── fce.py                  # Fuzzy Comprehensive Evaluation implementation
 ├── coupled_model/
-│   └── coupled_model.py       # Coupled Model Implementation
+│   ├── cm-ahp-weights.py       # Coupled model AHP weight calculation
+│   └── mutiply_with_weights.py # Weight multiplication implementation
 ├── generate_membership_degree/
-│   └── generate_membership.py  # Membership Degree Generation Tool
+│   ├── calculation.py          # Main membership degree calculation
+│   ├── generate_membership_degree_matrix.py # Matrix generation
+│   └── mutiply_with_weights.py # Weight multiplication for membership
 └── level_classification/
-    └── level_class.py         # Level Classification Implementation
+    └── level_classification.py # Level classification implementation
 ```
 
 ---
@@ -25,128 +30,99 @@ Assessment_model/
 ## 📚 Module Descriptions
 
 ### 1. Analytic Hierarchy Process (AHP) 🧮
-**Implementation:** `AHP/AHP.py`
 
-**Features:**
-- 📊 **Judgment Matrix Construction:** Build hierarchical structures for decision-making.
-- ⚖️ **Weight Vector Calculation:** Determine the relative weights of criteria.
-- ✔️ **Consistency Check:** Ensure the judgment matrix is consistent.
-- 🥇 **Hierarchical Total Ranking:** Rank alternatives based on the hierarchy.
-
-**Use Case:** Ideal for complex decision problems involving multiple levels and factors.
+- **Combines** multiple expert judgments into a single assessment.
+- **Calculates** weights for natural and social factors.
+- **Performs** consistency checks to validate the judgment matrix.
+- **Supports** hierarchical decision-making for complex evaluations.
 
 ---
 
 ### 2. Fuzzy Comprehensive Evaluation (FCE) 🌫️
-**Implementation:** `FCE/FCE.py`
 
-**Features:**
-- 📝 **Evaluation Factor Set Establishment:** Define the factors for evaluation.
-- 💬 **Comment Set Creation:** Create qualitative assessments.
-- 🏋️ **Weight Determination:** Assign weights to different factors.
-- 🔗 **Fuzzy Relation Matrix Construction:** Establish relationships between factors.
-- 📈 **Fuzzy Comprehensive Calculation:** Perform the evaluation based on fuzzy logic.
-
-**Use Case:** Suitable for multi-factor evaluation problems with inherent fuzziness.
+- Implements **membership function calculations**:
+  - Sharpened membership
+  - Intermediate membership
+  - Both ends membership
+- **Processes** indicator values against defined levels.
+- **Supports** multi-criteria evaluation to handle fuzziness in assessments.
 
 ---
 
 ### 3. Coupled Model 🔗
-**Implementation:** `coupled_model/coupled_model.py`
 
-**Features:**
-- 🔄 **Coupling Degree Calculation:** Measure the degree of interaction between systems.
-- 📉 **Coordination Degree Analysis:** Analyze the harmony between coupled systems.
-- 🏗️ **System Coupling Coordination Evaluation:** Assess the coordinated development of systems.
-
-**Use Case:** Evaluates system interactions and their coordinated development.
+- **Calculates** coupling degrees and weights.
+- Implements **Ex, En, He** calculations for system interactions.
+- Supports **consistency ratio (CR)** checking to ensure model reliability.
+- Includes **Random Index (RI)** values for consistency validation (up to n=30).
 
 ---
 
-### 4. Generate Membership Degree 🎛️
-**Implementation:** `generate_membership_degree/generate_membership.py`
+### 4. Membership Degree Generation 🎛️
 
-**Features:**
-- ➕ **Positive Indicator Membership Calculation:** Calculate memberships for positive indicators.
-- ➖ **Negative Indicator Membership Calculation:** Calculate memberships for negative indicators.
-- 🔄 **Intermediate Indicator Membership Calculation:** Handle intermediate indicators.
-
-**Use Case:** Facilitates quantitative processing of fuzzy evaluation indicators.
+- **Generates** membership degree matrices based on input data.
+- Supports **multiple calculation methods** to accommodate diverse evaluation needs.
+- Processes **batch data** from Excel files for efficient analysis.
+- Implements **matrix multiplication with weights** for enhanced evaluation.
 
 ---
 
 ### 5. Level Classification 🏅
-**Implementation:** `level_classification/level_class.py`
 
-**Features:**
-- 📂 **Evaluation Result Level Division:** Divide results into different levels.
-- ⚙️ **Classification Criteria Setting:** Define criteria for classification.
-- 🏆 **Level Determination:** Determine the appropriate level for evaluation results.
-
-**Use Case:** Used for grade division and classification of evaluation outcomes.
+- Implements **cloud model calculations** for classification.
+- Processes **classification data** directly from Excel.
+- Generates **Ex, En, He parameters** for classification boundaries.
+- Supports **multiple level divisions** for flexible result categorization.
 
 ---
 
 ## 📋 Requirements
 
-- **Python:** 3.6+
+- **Python Version:** 3.6+
 - **Libraries:**
   - [NumPy](https://numpy.org/)
   - [Pandas](https://pandas.pydata.org/)
+  - [SciPy](https://scipy.org/)
+- **Excel files** for input data (Level classification data, expert judgment matrices, indicator values, etc.)
 
 ---
 
-## 🚀 Usage Examples
+## 📥 Data Requirements
 
-### AHP Example
+The system expects specific **Excel files** for input:
+- Level classification data
+- Expert judgment matrices
+- Indicator values
+- Membership degree data
 
-```python
-from AHP.AHP import AHP
-
-# Create judgment matrix
-matrix = [
-    [1, 2, 7],
-    [1/2, 1, 4],
-    [1/7, 1/4, 1]
-]
-
-ahp = AHP(matrix)
-weights = ahp.get_weights()
-print("AHP Weights:", weights)
-```
-
-### FCE Example
-
-```python
-from FCE.FCE import FCE
-
-# Initialize evaluation matrix and weights
-R = [
-    [0.2, 0.3, 0.5],
-    [0.3, 0.5, 0.2],
-    [0.4, 0.4, 0.2]
-]
-W = [0.4, 0.3, 0.3]
-
-fce = FCE(R, W)
-result = fce.evaluate()
-print("FCE Result:", result)
-```
+Ensure all input files are correctly formatted to avoid processing issues.
 
 ---
 
-## ⚠️ Important Notes
+## 📈 Output Format
 
-1. **AHP Consistency:** Ensure the judgment matrix meets consistency requirements when using AHP.
-2. **FCE Weight Sum:** In FCE evaluation, the sum of weight vector components should equal 1.
-3. **Data Standardization:** Required before using the coupled model.
-4. **Membership Degree Generation:** Choose appropriate calculation methods based on indicator characteristics.
+Results are typically **exported to Excel files**, containing:
+- Membership degrees
+- Classification results
+- Combined expert judgments
+- Final assessment scores
+
+---
+
+## ⚠️ Usage Notes
+
+1. Ensure all **required Excel files** are in the correct format.
+2. **Check consistency ratios** in AHP calculations to maintain model accuracy.
+3. **Verify membership function parameters** before proceeding with calculations.
+4. **Review classification boundaries** to ensure correct results before processing.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open [issues](#) or submit [pull requests](#) to help improve the project.
+We welcome contributions! If you find any issues or would like to enhance the project, feel free to open [issues](#) or submit [pull requests](#).
 
 ---
 
+
+*Happy Evaluating! 🎉*
